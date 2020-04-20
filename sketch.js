@@ -1,4 +1,4 @@
-var player,imp_block,imp_block2,counter,gamestate,count,block1,block2,block3;
+var player,edges,imp_block,imp_block2,counter,gamestate,count,block1,block2,block3;
 function preload(){
   skurt=loadImage("skurt.png")
 }
@@ -37,9 +37,9 @@ function draw() {
   background("blue");
 
 //Edges
-  createEdgeSprites();
-  //player.collide(leftEdge);
-  //player.collide(rightEdge);
+  edges=createEdgeSprites();
+  player.collide(edges[0]);
+  player.collide(edges[1]);
   if(gamestate=="play"){
 //counting the score
     count=Math.round(World.frameCount/4);
@@ -86,10 +86,10 @@ function draw() {
     if(player.isTouching(counter)){
       gamestate="end";
     }
-    //if(player.isTouching(bottomEdge)){
+    if(player.isTouching(edges[3])){
       //playSound("sound://category_hits/8bit_splat.mp3");
-      //gamestate="end";
-    //}
+      gamestate="end";
+    }
 }
   if(gamestate=="end"){
     player.velocityX=0;
